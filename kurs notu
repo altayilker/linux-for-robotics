@@ -1,0 +1,456 @@
+
+Bash scripts:  are a very useful and common tool used by Linux developers. Basically, it is the tool used for creating programs for Linux
+
+$. ./demo.sh rotate
+
+--------------------------------
+
+what is a Linux Shell?
+
+Well, we can say that the Shell is the tool that allows you to communicate with the Linux system in order to tell it what to do (by sending commands)
+
+burada Web Shell dediği internet üzerinden çalışan Shell (kabuk) kastediyor
+
+--------------------------------
+
+$ ./demo.sh rotate
+
+--------------------------------
+
+$ ls -la
+
+Basically, the -la flag allows us to see some basic data related to the files or folders, like the permissions of the files/folders, their creation date/time, etc.
+
+In Linux systems, as you have already seen, any folder or file that starts with a dot (.), for instance /home/user/.bashrc (keep an eye on this file, since we will learn more about it later on in the course), will be treated as hidden.
+
+--------------------------------
+
+ls --help
+
+mkdir my_folder //folder oluşturma 
+
+cd ~/my_folder     // sadece başına home/user ekler
+
+--------------------------------
+
+"vi" visual editor: (unix visual editor )
+
+
+touch my_file.txt    // generating an empty file, or multiple files all at once.
+
+vi my_file.txt
+
+Basically, vi has 2 different modes: Command and Insert modes:
+- Command Mode: This mode allows you to use commands in order to interact with the file. For instance, go to a certain line of the file, delete certain lines, etc...
+- Insert Mode: This mode allows you to insert text into the file.
+
+By default, vi opens with the command mode activated. In order to switch to the insert mode, you will have to type the character i.
+
+This means that you are now on the insert mode. 
+
+esc key of your keyboard. Once you do so, you will see how the -- INSERT -- word disappears from your vi editor.
+
+So, now you're back again to the command mode. In order to save the file, you have to enter the following sequence of characters -> :wq.
+
+Now, just type enter on your keyboard, and the file will be saved. If you are asking yourself why these characters and not others, well, the character w stands for write and the character q stands for quit. So basically, you are telling your file to save and exit.
+
+--------------------------------
+
+$ mv <file/folder we want to move> <destination>
+$ mv -i filename newlocation
+
+$ rm <file to remove>
+$ rm -r my_scripts_copy       // remove the folder
+
+
+$ cp <file/folder we want to copy> <name of the new file/folder>
+$ cp -r my_scripts/ my_scripts_copy/          // to copy all folder
+
+
+--------------------------------
+
+rosrun <package_name> <executable_file>
+
+
+--------------------------------
+
+For now, let's just focus on the first part, which is rw-r--r--. These are the PERMISSIONS of the file.
+
+Each file or directory has 3 permissions types:
+
+read: The Read permission refers to a user's ability to read the contents of the file. It is stated with the character r.
+
+write: The Write permission refers to a user's ability to write or modify a file or directory. It is stated with the character w.
+
+execute: The Execute permission affects a user's ability to execute a file or view the contents of a directory. It is stated with the character x.
+
+On the other hand, each file or directory has three user-based permission groups:
+
+owner: The Owner permissions apply only to the owner of the file or directory, and will not impact the actions of other users. They are represented in the first 3 characters.
+
+group: The Group permissions apply only to the group that has been assigned to the file or directory, and will not affect the actions of other users. They are represented in the middle 3 characters.
+
+all users: The All Users permissions apply to all other users on the system, and this is the permission group that you want to watch the most. They are represented in the last 3 characters.
+
+So, applying all this to our file, we can say that the owner of the file (in this case, it's us) has read (r) and write (w) permissions, and the group and the rest of users have only read (r) permissions.
+
+
+rw-/r--/r--   : owner has read write permissions, group and all users has only read permission
+this file has no execution permissions
+
+--------------------------------
+
+Command "chmod"
+
+In Linux, the chmod command is used to modify the permissions of a given file or directory
+
+$ chmod +x move_bb8_square.py
+
+As you can see, the execution permissions, which are represented by the character x, have been added to all the permission groups.
+
+
+
+We already know the 2 last parameters. As for the groups, you can specify them using the following flags:
+
+u: Owner
+g: Group
+o: Others
+a: All users. For all users, you can also leave it blank, as we did in the example command you executed before.
+
+
+
+And, what if now we want to delete, for instance, the execution permissions for group and others? It would be something like this:
+
+$ chmod go-x move_bb8_square.py
+
+	In [ ]
+--------------------------------
+
+Is it clearer now? You can keep on doing some tests if you want to get used to it. But as I've already mentioned at the beginning of the section, there's still another method in which you can modify the permissions of a file. It is done through Binary References. And how does it work?
+
+It's quite simple actually. Basically, the whole string stating the permissions (rwxrwxrwx) is substituted by 3 numbers. The first number represents the Owner permission; the second represents the Group permissions; and the last number represents the permissions for all other users. And how do these numbers work?
+
+Basically, each permission has a number assigned:
+
+r = 4
+
+w = 2
+
+x = 1
+
+Then, you add the numbers to get the integer/number representing the permissions you wish to set. You will need to include the binary permissions for each of the three permission groups.
+
+For instance, let's say that we want to give the owner full permissions (rwx). Then, we would add 4 + 2 + 1 = 7. Now, for the Group, we just want to give read permissions (r--). Then, that would just be a 4. Finally, for all the other users, we don't want to give them any permission. Then, that would be a 0. So, at the end, we would have 740. So, the final command would be like this:
+
+
+$ chmod 740 move_bb8_square.py
+
+--------------------------------
+
+What is a script ?
+
+In computer programming, a script is a program or sequence of instructions that is interpreted or carried out by another program rather than by the computer processor (as a compiled program is).
+In general, script languages are easier and faster to code in than the more structured and compiled languages such as C and C++. However, a script takes longer to run than a compiled program since each instruction is being handled by another program first (requiring additional instructions) rather than directly by the basic instruction processor.
+
+how to run python scripts?
+
+$ python move_bb8_square.py
+
+--------------------------------
+
+Linux has its own scripts. They are commonly know as bash scripts.
+Basically, a bash script is a regular text file that contains a series of commands.
+
+Anything you can run normally on the command line can be put into a script and it will do exactly the same thing. Similarly, anything you can put into a script can also be run normally on the command line and it will do exactly the same thing.
+
+
+the file extension is .sh. Usually, this is the extension you will always use when you create a new bash script. Second, note that the script starts with the line #!/bin/bash. All bash scripts will start with this special line. Basically, it let's the Linux system know that this file is a bash script.
+
+https://www.hostinger.web.tr/rehberler/bash-script-nedir-ve-ornekleri
+
+
+```
+#!/bin/bash
+
+echo Hello there, Developers!
+```
+
+--------------------------------
+
+#!/bin/bash
+
+echo 'Going to my_scripts folder...'
+cd ~/catkin_ws/src/linux_course_files/move_bb8_pkg/my_scripts/
+echo 'Listing contents...'
+ls -la
+echo 'Changing permissions...'
+chmod 777 move_bb8_square.py
+echo 'Listing contents...'
+ls -la
+
+
+--------------------------------
+
+$ ./bash_script.sh
+
+getting error ?
+
+$ chmod +x bash_script.sh
+
+--------------------------------
+
+```
+#!/bin/bash
+
+ARG1=$1
+
+if [ $ARG1 == 'forward' ]; then
+    rostopic pub /cmd_vel geometry_msgs/Twist "linear:
+  x: -0.1
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.0"
+
+elif [ $ARG1 == 'rotate' ]; then
+    rostopic pub /cmd_vel geometry_msgs/Twist "linear:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.2"
+
+elif [ $ARG1 == 'stop' ]; then
+    rostopic pub /cmd_vel geometry_msgs/Twist "linear:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.0"
+fi
+```
+
+
+You can access an argument inside a script using the variables $1, $2, $3, and so on. The variable $1 refers to the first argument, $2 to the second argument, and $3 to the third argument. Then, we assign the value of the argument to the variable $ARG1. So, the $ARG1 variable will contain either forward, rotate, or stop
+
+
+--------------------------------
+
+Create a bash script that does the following:
+- It will receive one parameter, which will contain either:
+	- circle
+	- forward_backward
+	- square
+- If the parameter is circle, the script will execute the move_bb8_circle.pyfile.
+  If the parameter is forward_backward, the script will execute the move_bb8_forward_backward.pyfile.
+- If the parameter is square, the script will execute the move_bb8_square.pyfile.
+
+
+```
+#!/bin/bash
+
+ARG1=$1
+
+if [ "$ARG1" == "circle" ]; then
+   echo "circling";
+   rosrun move_bb8_pkg move_bb8_circle.py 
+
+elif [ "$ARG1" == 'forward_backward' ]; then
+     echo "back and forth";
+     rosrun move_bb8_pkg move_bb8_forward_backward.py
+
+elif [ "$ARG1" == "square" ]; then
+     echo "square dancing";
+     rosrun move_bb8_pkg move_bb8_square.py
+
+else 
+echo "Please enter one of the following;
+circle
+forward_backward
+square"
+
+fi
+```
+
+
+--------------------------------
+
+The ".bashrc" file
+
+In the previous section, we just introduced you to bash scripts. Now, let me introduce to a very special bash script. In fact, you already had a sneek peak at it in the previous unit. I'm talking about the .bashrc file. The .bashrc file is a special bash script, which Linux executes whenever a new Shell session is initialized
+
+there is a command that allows you to force the execution of the .bashrc file. This is the source command.
+
+$ source .bashrc
+
+
+--------------------------------
+
+Environment Variables
+
+An environment variable is a dynamic-named value that can affect the way running processes will behave on a computer.
+
+They are part of the environment in which a process runs. For example, a running process can query the value of the TEMP environment variable to discover a suitable location to store temporary files, or the HOME variable to find the directory structure owned by the user running the process. Or, for instance, the PS1 variable, which you modified in the previous section, which defines the color of the Shell of prompt.
+
+Furthermore, environment variables are frequently used in Robotics Development and in ROS.
+
+see all the environment variables running:
+
+$ export
+
+As you can see, you can view all the environment variables with their values. But, there are a lot of variables...
+
+--------------------------------
+
+Command "grep"
+
+In Linux systems, the grep command is used in order to filter elements.
+
+$ export | grep ROS
+
+You cannot only use the grep command alongside export. Not at all! In fact, you can use it with any command you want.
+
+$ ls | grep bb8
+
+--------------------------------
+
+Setting a variable with export
+
+you can set environment variables using the command export
+
+$ export PS1="\${debian_chroot:+(\$debian_chroot)}\\[\\033[01;36m\\]\\u\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\\$ "
+
+
+--------------------------------
+
+$ export ROS_PACKAGE_PATH="/home/simulations/public_sim_ws/src:/opt/ros/kinetic/share"
+
+$ rosrun move_bb8_pkg move_bb8_square.py // calismaz
+
+$ export ROS_PACKAGE_PATH="/home/user/catkin_ws/src:/home/simulations/public_sim_ws/src:/opt/ros/kinetic/share"
+
+$ rosrun move_bb8_pkg move_bb8_square.py // calisir
+
+--------------------------------
+
+Linux Processes
+
+$ htop   // visualize processes
+
+$ ps faux
+
+--------------------------------
+
+Ctrl + C :
+
+Ctrl + C is used to kill a process with the signal SIGINT, and can be intercepted by a program (in our case, it's test_process.py) so that it can clean itself up before exiting (in our case, stop the robot), or not exit at all. It depends on how the application is built.
+
+
+$ ps faux | grep test_process
+
+--------------------------------
+
+Ctrl + Z :
+
+Ctrl + Z is used for suspending a process by sending it the signal SIGSTOP, which cannot be intercepted by the program. Basically, it sends SIGTSTOP to a foreground application, effectively putting it in the background, suspended. But then... does this means that the process will still be there?
+
+
+--------------------------------
+
+Command "kill"
+
+In the previous section, we sent a foreground process to the background, using the command Ctrl+Z. But this opened up a new question: how can I stop a process that is running in the background? Well, for this case, Linux provides the killcommand. It's very easy to use, but you need to know the Process ID (PID) of the process you want to terminate.
+
+The PID of the process is the number that appears in the second column. In the case of our process, it is 26244, but in your case, it will probably be different. So now, in order to kill, you just have to execute the following command:
+
+$ kill PID
+
+So... what happened? The process is still there, right? Can you guess why?
+
+Well, the problem here is that when you use Ctrl + Z, besides sending the process to the background, you are also suspending it (sending a SIGSTOP signal). So, any signal we send now to the process (for instance, to kill it) will be ignored by the process. So... what can we do?
+
+For this, the bg command comes in handy. The bg command is used in order to resume the execution of a suspended background process. Let's try it! So, on the same Web Shell where you stopped the process using Ctrl + Z, now execute the following command:
+
+$ bg
+
+https://itsfoss.com/how-to-find-the-process-id-of-a-program-and-kill-it-quick-tip/
+
+
+
+--------------------------------
+
+Starting a process on the background
+
+Now, in a previous section, we sent a foreground process to the backgroundusing the Ctrl + Zcommand. But it is also possible to directly start a process in the background. For instance, try the following command.
+
+$ rosrun move_bb8_pkg test_process.py &
+
+--------------------------------
+
+
+Kill the process using the PID
+
+
+$ sudo kill -9 process_id
+
+
+--------------------------------
+
+ssh protocol:
+
+Secure Shell, most commonly known as ssh, is a protocol that allows users to connect to a remote machine in a secure way. It is based on a Client-Server architecture. So, from your local machine (Client), you can log into the remote machine (Server) in order to transfer files between the two machines, execute commands on the remote machine, etc...
+
+In robotics, it is mostly used to access the remote machine that runs in a real (physical) robot from any computer in order to control it and send commands to it. Unfortunately, in this course, there is no way to test this with a real robot. But don't worry!! We are going to explain the basic steps to establish the connection anyway. In the end, it will almost be the same process.
+
+
+We have our personal laptop (at the left) and a real BB8 robot. The BB8 robot has a Linux computer inside. The computer inside BB8 has an IP (let's say, 127.0.0.1), and it has a SSH Server running on it. So now, what would we do in order to connect to it so that we can control and move the BB8 robot?
+
+$ ssh <user>@<host>
+
+<host> makes reference to the remote machine you want to access (where the SSH Server is running), and <user> makes reference to the account in which you want to login from the remote machine.
+
+
+As a hint, I will tell you that there's an account named studentin the BB8 computer. So... any ideas? Let's try the following:
+
+
+$ ssh student@127.0.0.1  // error
+
+$ ps faux | grep ssh
+
+We can see an SSH process started by the root
+
+$ sudo /usr/sbin/sshd -p 8090 -D
+
+And... what does this mean? Well, let me help you with this one. Basically, this is the command executed by the host in order to start the SSH Server. So, we can actually confirm that the SSH Server is running. But also, it has one particularity. The SSH Server has been launched with the -p argument. This argument is used in order to specify the port in which the SSH Server will run. And we can see that the port specified is 8090.
+
+
+...we can see that our SSH Client was trying to connect to the SSH Sever using the port 22. Hey!! Could this be the error? Let's try the following command:
+
+$ ssh student@127.0.0.1 -p 8090
+
+$ exit  // close the SSH session
+
+--------------------------------
+
+
+Commands "apt" and "sudo" :
+
+Linux uses a dpkg packaging system. A packaging system is a way to provide programs and applications for installation. This way, you don’t have to build a program from the source code.
+
+APT(Advanced Package Tool) is the command line tool to interact with this packaging system. You can use it to find and install new packages, upgrade packages, clean packages, etc.
+
+apt-get basically works on a database of available packages. If you don’t update this database, the system won’t know if there are newer packages available or not. In fact, this is the first command you need to run in any Linux system after a fresh install. So... let's update our database!
+
+
+$ sudo apt-get update
+
+Sudo is a utility of Linux systems (and other Unix based systems) that allows users to execute a program or a command with the privileges (permissions) of another user (usually the root user). This this way, it allows you
+
+--------------------------------
+
